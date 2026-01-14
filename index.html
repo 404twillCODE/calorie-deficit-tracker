@@ -72,8 +72,15 @@
                     <button id="logoutBtn" class="logout-button" title="Sign out">Sign Out</button>
                 </div>
                 <div class="date-display">
-                    <div class="day-name" id="dayName"></div>
-                    <div class="date-value" id="dateValue"></div>
+                    <div class="date-navigation">
+                        <button id="prevDayBtn" class="date-nav-btn" title="Previous day">‹</button>
+                        <div class="date-info">
+                            <div class="day-name" id="dayName"></div>
+                            <div class="date-value" id="dateValue"></div>
+                        </div>
+                        <button id="nextDayBtn" class="date-nav-btn" title="Next day">›</button>
+                    </div>
+                    <button id="todayBtn" class="today-button">Today</button>
                 </div>
             </header>
 
@@ -104,7 +111,7 @@
 
             <section class="stats-section">
                 <div class="stat-card today">
-                    <div class="stat-label">Today's Deficit</div>
+                    <div class="stat-label" id="todayDeficitLabel">Today's Deficit</div>
                     <div class="stat-value" id="todayDeficit">0</div>
                 </div>
                 

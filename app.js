@@ -430,6 +430,66 @@ function updateDateDisplay() {
     
     document.getElementById('dayName').textContent = dayName;
     document.getElementById('dateValue').textContent = dateStr;
+    
+    // Update stat label
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const selectedDate = new Date(currentDate);
+    selectedDate.setHours(0, 0, 0, 0);
+    const isToday = selectedDate.getTime() === today.getTime();
+    
+    const labelEl = document.getElementById('todayDeficitLabel');
+    if (labelEl) {
+        labelEl.textContent = isToday ? "Today's Deficit" : "Day's Deficit";
+    }
+    
+    // Update navigation buttons
+    updateDateNavigation();
+}
+
+// Change date by days
+function changeDate(days) {
+    const newDate = new Date(currentDate);
+    newDate.setDate(newDate.getDate() + days);
+    currentDate = newDate;
+    updateDateDisplay();
+    loadTodayData();
+}
+
+// Go to today
+function goToToday() {
+    currentDate = new Date();
+    updateDateDisplay();
+    loadTodayData();
+}
+
+// Update date navigation buttons
+function updateDateNavigation() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const selectedDate = new Date(currentDate);
+    selectedDate.setHours(0, 0, 0, 0);
+    
+    const isToday = selectedDate.getTime() === today.getTime();
+    
+    const todayBtn = document.getElementById('todayBtn');
+    if (todayBtn) {
+        if (isToday) {
+            todayBtn.classList.add('hidden');
+        } else {
+            todayBtn.classList.remove('hidden');
+        }
+    }
+    
+    // Disable next button if trying to go to future
+    const nextDayBtn = document.getElementById('nextDayBtn');
+    if (nextDayBtn) {
+        if (selectedDate >= today) {
+            nextDayBtn.disabled = true;
+        } else {
+            nextDayBtn.disabled = false;
+        }
+    }
 }
 
 // Setup event listeners
@@ -448,6 +508,21 @@ function setupEventListeners() {
     if (caloriesBurned) {
         caloriesBurned.addEventListener('input', debounce(updateCalculations, 300));
     }
+    
+    // Date navigation
+    const prevDayBtn = document.getElementById('prevDayBtn');
+    const nextDayBtn = document.getElementById('nextDayBtn');
+    const todayBtn = document.getElementById('todayBtn');
+    
+    if (prevDayBtn) {
+        prevDayBtn.addEventListener('click', () => changeDate(-1));
+    }
+    if (nextDayBtn) {
+        nextDayBtn.addEventListener('click', () => changeDate(1));
+    }
+    if (todayBtn) {
+        todayBtn.addEventListener('click', goToToday);
+    }
 }
 
 // Debounce function
@@ -463,7 +538,7 @@ function debounce(func, wait) {
     };
 }
 
-// Load today's data
+// Load today's data (or selected date)
 async function loadTodayData() {
     if (!currentUser || !supabaseClient) {
         return;
@@ -481,9 +556,14 @@ async function loadTodayData() {
         
         if (error && error.code !== 'PGRST116') { // PGRST116 is "not found"
             console.error('Error loading data:', error);
+            todayData = null;
+            clearInputs();
         } else if (data) {
             todayData = data;
             populateInputs();
+        } else {
+            todayData = null;
+            clearInputs();
         }
         
         await loadAllData();
@@ -492,7 +572,18 @@ async function loadTodayData() {
         updateHistory();
     } catch (error) {
         console.error('Error in loadTodayData:', error);
+        todayData = null;
+        clearInputs();
     }
+}
+
+// Clear input fields
+function clearInputs() {
+    const caloriesEaten = document.getElementById('caloriesEaten');
+    const caloriesBurned = document.getElementById('caloriesBurned');
+    if (caloriesEaten) caloriesEaten.value = '';
+    if (caloriesBurned) caloriesBurned.value = '';
+    updateCalculations();
 }
 
 // Populate input fields
@@ -678,9 +769,12 @@ function updateHistory() {
         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
         const deficit = entry.deficit || 0;
         const deficitClass = deficit >= 0 ? 'positive' : 'negative';
+        const dateKey = entry.date;
+        const isSelected = formatDateKey(currentDate) === dateKey;
+        const selectedClass = isSelected ? 'selected' : '';
         
         return `
-            <div class="history-item">
+            <div class="history-item ${selectedClass}" data-date="${dateKey}" onclick="selectDate('${dateKey}')">
                 <div>
                     <div class="history-item-date">${dayName}, ${dateStr}</div>
                     <div class="history-item-details">
@@ -694,6 +788,23 @@ function updateHistory() {
             </div>
         `;
     }).join('');
+}
+
+// Select date from history
+function selectDate(dateKey) {
+    const date = new Date(dateKey);
+    if (!isNaN(date.getTime())) {
+        currentDate = date;
+        updateDateDisplay();
+        loadTodayData();
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+// Make selectDate available globally for onclick
+window.selectDate = selectDate;
 }
 
 // Format date as YYYY-MM-DD

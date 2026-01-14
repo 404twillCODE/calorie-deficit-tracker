@@ -87,6 +87,52 @@ header h1 {
     z-index: 1;
 }
 
+.date-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.date-nav-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+}
+
+.date-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+.date-nav-btn:active {
+    transform: scale(0.95);
+}
+
+.date-nav-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.date-info {
+    flex: 1;
+    min-width: 0;
+}
+
 .day-name {
     font-size: 1.5rem;
     font-weight: 700;
@@ -99,6 +145,31 @@ header h1 {
     font-size: 1rem;
     opacity: 0.95;
     font-weight: 500;
+}
+
+.today-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.today-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.today-button:active {
+    transform: translateY(0);
+}
+
+.today-button.hidden {
+    display: none;
 }
 
 main {
@@ -409,6 +480,19 @@ main {
 
 .history-item:hover::before {
     opacity: 1;
+}
+
+.history-item.selected {
+    border-color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.history-item.selected::before {
+    opacity: 1;
+}
+
+.history-item {
+    cursor: pointer;
 }
 
 .history-item-date {
