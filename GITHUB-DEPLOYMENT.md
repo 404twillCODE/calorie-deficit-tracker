@@ -99,17 +99,35 @@ GitHub Actions will automatically rebuild and deploy your site.
 ### Site not loading
 - Check the **Actions** tab for any errors
 - Verify GitHub Secrets are set correctly
-- Make sure GitHub Pages is enabled
+- Make sure GitHub Pages is enabled with **GitHub Actions** as the source
+- Wait 1-2 minutes after deployment completes
 
-### Supabase not working
-- Verify your `SUPABASE_URL` and `SUPABASE_ANON_KEY` secrets are correct
-- Check browser console for errors
-- Make sure your Supabase project is active
+### Workflow fails with "Permission denied" or "403"
+- Go to **Settings** → **Actions** → **General**
+- Under **Workflow permissions**, select **Read and write permissions**
+- Check **Allow GitHub Actions to create and approve pull requests**
+- Save the changes
+
+### "config.js is empty" or Supabase not working
+- Verify your GitHub Secrets are set:
+  - Go to **Settings** → **Secrets and variables** → **Actions**
+  - Make sure `SUPABASE_URL` and `SUPABASE_ANON_KEY` exist
+  - Check that the values are correct (no extra spaces)
+- Check the Actions log to see if config.js was generated
+- Verify your Supabase project is active
 
 ### Build fails
-- Check the Actions log for specific errors
-- Ensure all files are committed
-- Verify Node.js version compatibility
+- Check the **Actions** tab → Click on the failed workflow → View logs
+- Common issues:
+  - Missing GitHub Secrets (add them in Settings → Secrets)
+  - Wrong branch name (should be `main` or `master`)
+  - GitHub Pages not enabled
+- Try running the workflow manually: **Actions** → **Deploy to GitHub Pages** → **Run workflow**
+
+### "No workflow runs found"
+- Make sure you've pushed code to the `main` or `master` branch
+- Check that `.github/workflows/deploy.yml` exists in your repository
+- Try pushing again or manually trigger the workflow
 
 ## Security Notes
 

@@ -1,4 +1,7 @@
-name: Deploy to GitHub Pages
+# Simple static site deployment for GitHub Pages
+# This is a backup workflow if the main deploy workflow has issues
+
+name: Deploy Static Site
 
 on:
   push:
@@ -12,12 +15,11 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,6 +36,7 @@ jobs:
           const supabaseAnonKey = '${{ secrets.SUPABASE_ANON_KEY }}';
           EOF
           echo "✓ config.js generated"
+          cat config.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -43,13 +46,7 @@ jobs:
         with:
           path: '.'
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
