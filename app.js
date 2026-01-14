@@ -9,6 +9,7 @@ let currentUser = null;
             try {
                 supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
                 console.log('✓ Supabase client initialized');
+                console.log('Supabase URL:', supabaseUrl ? supabaseUrl.substring(0, 30) + '...' : 'MISSING');
             } catch (error) {
                 console.error('✗ Error initializing Supabase:', error);
             }
@@ -17,6 +18,8 @@ let currentUser = null;
         }
     } else {
         console.error('✗ Supabase credentials missing - check config.js');
+        console.error('supabaseUrl:', typeof supabaseUrl !== 'undefined' ? (supabaseUrl || 'EMPTY') : 'UNDEFINED');
+        console.error('supabaseAnonKey:', typeof supabaseAnonKey !== 'undefined' ? (supabaseAnonKey ? 'SET' : 'EMPTY') : 'UNDEFINED');
     }
 })();
 

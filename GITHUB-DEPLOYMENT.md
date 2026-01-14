@@ -50,6 +50,25 @@ git push -u origin main
    - Name: `SUPABASE_ANON_KEY`
    - Value: Your Supabase anon/public key (from Supabase dashboard → Settings → API)
 
+## Step 3.5: Configure Supabase for GitHub Pages (IMPORTANT!)
+
+**This step is critical - Supabase won't work without it!**
+
+1. Go to your Supabase Dashboard
+2. Navigate to **Authentication** → **URL Configuration**
+3. Under **Site URL**, add your GitHub Pages URL:
+   ```
+   https://YOUR-USERNAME.github.io
+   ```
+4. Under **Redirect URLs**, add (one per line):
+   ```
+   https://YOUR-USERNAME.github.io/**
+   https://YOUR-USERNAME.github.io/calorie-deficit-tracker/**
+   ```
+5. Click **Save**
+
+⚠️ **Without this step, you'll get CORS errors and Supabase won't work!**
+
 ## Step 4: Enable GitHub Pages
 
 1. Go to your repository **Settings** → **Pages**
