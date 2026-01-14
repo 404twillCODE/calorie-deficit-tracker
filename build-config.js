@@ -46,3 +46,4 @@ if (!supabaseUrl || !supabaseAnonKey) {
     console.log('⚠ Warning: Supabase credentials are empty. Make sure your .env file is configured.');
 }
 
+

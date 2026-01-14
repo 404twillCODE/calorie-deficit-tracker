@@ -119,3 +119,4 @@ Supabase requires you to add your site URL to allowed redirect URLs:
    - Look for any red error messages
    - Share the error message for further help
 
+

@@ -117,3 +117,4 @@ For production apps, it's recommended to use a custom SMTP provider:
 - After verification, they can sign in
 - The app shows a message: "Please check your email to verify your account"
 
+
