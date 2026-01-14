@@ -34,11 +34,14 @@ CALORIE DEFICIT TRACKER - SETUP INSTRUCTIONS
    - To customize email templates, see EMAIL-CUSTOMIZATION.md
 
 4. GITHUB PAGES SETUP:
-   - Push this repository to GitHub
-   - Go to your repository Settings > Pages
-   - Select your main branch as the source
+   - See GITHUB-DEPLOYMENT.md for detailed instructions
+   - Quick setup:
+     1. Push repository to GitHub
+     2. Go to Settings > Secrets and variables > Actions
+     3. Add SUPABASE_URL and SUPABASE_ANON_KEY as secrets
+     4. Go to Settings > Pages, select "GitHub Actions" as source
+     5. Push to main branch - deployment happens automatically
    - Your app will be available at: https://[your-username].github.io/calorie-deficit-tracker/
-   - Make sure to run "npm run build-config" before pushing to generate config.js
 
 5. IPHONE WEB APP:
    - Open the website on your iPhone Safari browser
