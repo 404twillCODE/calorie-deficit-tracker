@@ -1,0 +1,60 @@
+CALORIE DEFICIT TRACKER - SETUP INSTRUCTIONS
+============================================
+
+1. SUPABASE SETUP:
+   - Go to https://supabase.com and create a free account
+   - Create a new project (choose a name and database password)
+   - Wait for the project to finish setting up (takes 1-2 minutes)
+   - Go to Settings > API
+   - Copy your Project URL and anon/public key
+   - Create a .env file in the root directory with this content:
+     
+     SUPABASE_URL=your-project-url-here
+     SUPABASE_ANON_KEY=your-anon-key-here
+     
+     (Replace the placeholders with your actual credentials)
+   - Run: npm run build-config (or: node build-config.js)
+   - This will generate config.js from your .env file
+   - Note: .env is in .gitignore and won't be committed to GitHub
+
+2. DATABASE SETUP:
+   - In your Supabase dashboard, go to SQL Editor
+   - Open the supabase-setup.sql file from this project
+   - Copy and paste the entire SQL script into the SQL Editor
+   - Click "Run" to execute the script
+   - This will create the calorie_entries table with user authentication
+   - The table includes Row Level Security (RLS) so users can only see their own data
+
+3. AUTHENTICATION SETUP:
+   - Supabase Authentication is already enabled by default
+   - Users can sign up with email and password
+   - Email verification is enabled by default - users must verify their email before signing in
+   - After signup, users will see a message to check their email for verification
+   - Each user's data is automatically isolated using Row Level Security
+   - To customize email templates, see EMAIL-CUSTOMIZATION.md
+
+4. GITHUB PAGES SETUP:
+   - Push this repository to GitHub
+   - Go to your repository Settings > Pages
+   - Select your main branch as the source
+   - Your app will be available at: https://[your-username].github.io/calorie-deficit-tracker/
+   - Make sure to run "npm run build-config" before pushing to generate config.js
+
+5. IPHONE WEB APP:
+   - Open the website on your iPhone Safari browser
+   - Tap the Share button
+   - Select "Add to Home Screen"
+   - The app will now appear as an icon on your home screen
+   - Sign up or sign in to start tracking your calories
+
+6. OPTIONAL - APP ICONS:
+   - Create 192x192 and 512x512 PNG images
+   - Name them icon-192.png and icon-512.png
+   - Place them in the root directory
+   - This will give your web app custom icons when added to home screen
+
+IMPORTANT NOTES:
+- Users must create an account to use the app
+- Each user's data is stored separately and securely
+- The app requires Supabase to be configured - it will not work without it
+- Make sure to keep your .env file secure and never commit it to GitHub

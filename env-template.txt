@@ -1,0 +1,7 @@
+# Supabase Configuration
+# Copy this content to create a .env file in the root directory
+# You can find these credentials in your Supabase project settings > API
+
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+

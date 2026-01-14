@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Calorie Tracker">
+    <meta name="theme-color" content="#0f172a">
+    <title>Calorie Deficit Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Authentication Screen -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>Calorie Deficit Tracker</h1>
+                <p>Track your daily calorie deficit</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <h2>Sign In</h2>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                </div>
+                <button id="loginBtn" class="auth-button">Sign In</button>
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" id="showSignup">Sign up</a>
+                </p>
+                <div id="loginError" class="error-message"></div>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form">
+                <h2>Create Account</h2>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Min. 6 characters" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="signupPasswordConfirm">Confirm Password</label>
+                    <input type="password" id="signupPasswordConfirm" placeholder="Confirm password" required>
+                </div>
+                <button id="signupBtn" class="auth-button">Create Account</button>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" id="showLogin">Sign in</a>
+                </p>
+                <div id="signupError" class="error-message"></div>
+                <div id="signupSuccess" class="success-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="appScreen" class="app-screen hidden">
+        <div class="container">
+            <header>
+                <div class="header-top">
+                    <h1>Calorie Deficit Tracker</h1>
+                    <button id="logoutBtn" class="logout-button" title="Sign out">Sign Out</button>
+                </div>
+                <div class="date-display">
+                    <div class="day-name" id="dayName"></div>
+                    <div class="date-value" id="dateValue"></div>
+                </div>
+            </header>
+
+            <main>
+            <section class="input-section">
+                <div class="input-card">
+                    <label for="caloriesEaten">Calories Eaten</label>
+                    <input 
+                        type="number" 
+                        id="caloriesEaten" 
+                        placeholder="Enter calories"
+                        min="0"
+                        step="1"
+                    >
+                </div>
+                <div class="input-card">
+                    <label for="caloriesBurned">Calories Burned</label>
+                    <input 
+                        type="number" 
+                        id="caloriesBurned" 
+                        placeholder="Enter calories"
+                        min="0"
+                        step="1"
+                    >
+                </div>
+                <button id="saveBtn" class="save-button">Save Day</button>
+            </section>
+
+            <section class="stats-section">
+                <div class="stat-card today">
+                    <div class="stat-label">Today's Deficit</div>
+                    <div class="stat-value" id="todayDeficit">0</div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">This Week</div>
+                        <div class="stat-value" id="weekDeficit">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">This Month</div>
+                        <div class="stat-value" id="monthDeficit">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">This Year</div>
+                        <div class="stat-value" id="yearDeficit">0</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <h2>Recent Days</h2>
+                <div id="historyList" class="history-list">
+                    <!-- History items will be inserted here -->
+                </div>
+            </section>
+        </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+

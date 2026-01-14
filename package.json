@@ -1,0 +1,12 @@
+{
+  "name": "calorie-deficit-tracker",
+  "version": "1.0.0",
+  "description": "Calorie deficit tracking web app",
+  "scripts": {
+    "build-config": "node build-config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
+
